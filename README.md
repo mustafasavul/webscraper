@@ -1,6 +1,6 @@
 
 # IMDB Scraper
-This repository contains two Node.js scripts that scrape movie data from the IMDB Top 50 Turkish Movies page.
+This repository contains two Node.js scripts that scrape movie data from the IMDB 100 Movies You Should Watch Before You Die! list page.
 
 ## Installation
 Before running the scripts, install the required dependencies:
