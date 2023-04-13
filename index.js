@@ -22,19 +22,20 @@ axios
       const imgSrc = $(element).find(imgSelector).attr('src');
 
       let stitle = title.trim().replace(/\s*\n\s*/g, ' ');
-      let smetaskor = score.trim().replace(/\s*\n\s*/g, ' ');
+      let smetascore = score.trim().replace(/\s*\n\s*/g, ' ');
 
       results.push({
-        baslik: stitle,
-        metaskor: smetaskor,
-        resim: imgSrc,
+        title: stitle,
+        score: smetascore,
+        time: time,
+        pictureURL: imgSrc,
       });
 
       const jsonResults = JSON.stringify(results, null, 2);
-      fs.writeFileSync('sonuclar.json', jsonResults);
+      fs.writeFileSync('result.json', jsonResults);
       console.log(jsonResults);
     });
   })
   .catch((error) => {
-    console.error(`Hata: ${error.message}`);
+    console.error(`Erro: ${error.message}`);
   });

@@ -11,7 +11,7 @@ async function downloadImage(uri, filename) {
     const buffer = await request({ uri, encoding: null });
     fs.writeFileSync(filename, buffer);
   } catch (error) {
-    console.error(`Resim indirme hatası: ${error.message}`);
+    console.error(`Error: ${error.message}`);
   }
 }
 
@@ -65,10 +65,10 @@ async function scrape() {
         const imgSrc = element.querySelector(imgSelector)?.getAttribute('src');
 
         data.push({
-          baslik: title,
-          skore: score,
-          zaman: time,
-          resimURL: imgSrc,
+          title: title,
+          score: score,
+          time: time,
+          pictureURL: imgSrc,
         });
       }
 
@@ -84,12 +84,12 @@ async function scrape() {
   await browser.close();
 
   for (const [index, result] of results.entries()) {
-    if (result.resimURL) {
-      const cleanedTitle = cleanTitle(result.baslik);
-      const fileName = `${cleanedTitle}_${index}.jpg`; // Başlığı kullanarak dosya adı oluşturun
-      console.log(`Resim indiriliyor: ${result.resimURL}`);
+    if (result.pictureURL) {
+      const cleanedTitle = cleanTitle(result.title);
+      const fileName = `${cleanedTitle}_${index}.jpg`;
+      console.log(`Picture Downloaded: ${result.pictureURL}`);
       await downloadImage(result.resimURL, fileName);
-      console.log(`${fileName} olarak kaydedildi.`);
+      console.log(`${fileName} saved.`);
     }
   }
 
@@ -99,8 +99,8 @@ async function scrape() {
 scrape()
   .then((jsonResults) => {
     console.log(jsonResults);
-    fs.writeFileSync('sonuclar2.json', jsonResults);
+    fs.writeFileSync('result2.json', jsonResults);
   })
   .catch((error) => {
-    console.error(`Hata: ${error.message}`);
+    console.error(`Error: ${error.message}`);
   });
